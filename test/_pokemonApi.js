@@ -92,4 +92,14 @@ describe("Pokemon API Server", () => {
     const expected = pokeData.types.slice(0, 3);
     expect(response.body).to.deep.equal(expected);
   });
+
+  it("should add a type", async () => {
+    const expected = "Cool";
+    const response = await request.post("/api/types").query({ type: "Cool" });
+    const length = pokeData.types.length;
+    const actual = pokeData.types[length - 1];
+    response.should.have.status(201);
+    expect(pokeData.types.length).to.equal(18);
+    expect(actual).to.equal(expected);
+  });
 });

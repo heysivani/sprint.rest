@@ -151,7 +151,10 @@ const setupServer = () => {
     res.send(returnTypes);
   });
 
-  app.post("/api/types", (req, res) => {});
+  app.post("/api/types", (req, res) => {
+    pokeData.types.push(req.query.type);
+    res.sendStatus(201);
+  });
 
   return app;
 };
