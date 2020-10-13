@@ -199,6 +199,17 @@ const setupServer = () => {
     res.send(result);
   });
 
+  app.get("/api/attacks/:name", (req, res) => {
+    const name = req.params.name;
+    const allAttacks = pokeData.attacks.fast.concat(pokeData.attacks.special);
+
+    for (const attack of allAttacks) {
+      if (attack.name && String(attack.name) === String(name)) {
+        res.send(attack);
+      }
+    }
+  });
+
   return app;
 };
 

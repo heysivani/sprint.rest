@@ -149,4 +149,10 @@ describe("Pokemon API Server", () => {
     expect(response.body.length).to.equal(3);
     expect(response.body).to.deep.equal(specialAttacks.slice(0, 3));
   });
+
+  it("should return a specific attack by name", async () => {
+    const response = await request.get("/api/attacks/Acid");
+    const allAttacks = pokeData.attacks.fast.concat(pokeData.attacks.special);
+    expect(response.body).to.deep.equal(allAttacks[16]);
+  });
 });
