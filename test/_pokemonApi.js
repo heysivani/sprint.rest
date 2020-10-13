@@ -168,4 +168,28 @@ describe("Pokemon API Server", () => {
     expect(response.body.length).to.equal(4);
     expect(response.body).to.deep.equal(expected);
   });
+
+  it("should add a fast attack", async () => {
+    const attack = {
+      name: "Shiv",
+      type: "Ouch",
+      damage: 777,
+    };
+    const response = await request.post("/api/attacks/fast").query({ attack });
+    response.should.have.status(201);
+    expect(pokeData.attacks.fast[40].name).to.deep.equal(attack.name);
+  });
+
+  it("should add a special attack", async () => {
+    const attack = {
+      name: "SpecialShiv",
+      type: "Ouchie",
+      damage: 777,
+    };
+    const response = await request
+      .post("/api/attacks/special")
+      .query({ attack });
+    response.should.have.status(201);
+    expect(pokeData.attacks.special[83].name).to.deep.equal(attack.name);
+  });
 });

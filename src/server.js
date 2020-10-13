@@ -238,6 +238,18 @@ const setupServer = () => {
     res.send(result);
   });
 
+  app.post("/api/attacks/fast", (req, res) => {
+    const newAttack = req.query.attack;
+    pokeData.attacks.fast.push(newAttack);
+    res.sendStatus(201);
+  });
+
+  app.post("/api/attacks/special", (req, res) => {
+    const newAttack = req.query.attack;
+    pokeData.attacks.special.push(newAttack);
+    res.sendStatus(201);
+  });
+
   return app;
 };
 
