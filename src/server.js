@@ -185,6 +185,20 @@ const setupServer = () => {
     res.send(result);
   });
 
+  app.get("/api/attacks/fast", (req, res) => {
+    const limit = req.query.limit || 123;
+    const fastAttacks = pokeData.attacks.fast;
+    const result = fastAttacks.slice(0, limit);
+    res.send(result);
+  });
+
+  app.get("/api/attacks/special", (req, res) => {
+    const limit = req.query.limit || 123;
+    const specialAttacks = pokeData.attacks.special;
+    const result = specialAttacks.slice(0, limit);
+    res.send(result);
+  });
+
   return app;
 };
 

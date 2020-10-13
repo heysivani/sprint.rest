@@ -130,7 +130,23 @@ describe("Pokemon API Server", () => {
   it("should return list of attacks based on limit", async () => {
     const response = await request.get("/api/attacks").query({ limit: 3 });
     const allAttacks = pokeData.attacks.fast.concat(pokeData.attacks.special);
-    console.log("ALL length", allAttacks.length);
     expect(response.body.length).to.equal(3);
+    expect(response.body).to.deep.equal(allAttacks.slice(0, 3));
+  });
+
+  it("should return list of fast attacks based on limit", async () => {
+    const response = await request.get("/api/attacks/fast").query({ limit: 3 });
+    const fastAttacks = pokeData.attacks.fast;
+    expect(response.body.length).to.equal(3);
+    expect(response.body).to.deep.equal(fastAttacks.slice(0, 3));
+  });
+
+  it("should return list of special attacks based on limit", async () => {
+    const response = await request
+      .get("/api/attacks/special")
+      .query({ limit: 3 });
+    const specialAttacks = pokeData.attacks.special;
+    expect(response.body.length).to.equal(3);
+    expect(response.body).to.deep.equal(specialAttacks.slice(0, 3));
   });
 });
