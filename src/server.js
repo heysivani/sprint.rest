@@ -178,6 +178,13 @@ const setupServer = () => {
     res.send(result);
   });
 
+  app.get("/api/attacks", (req, res) => {
+    const limit = req.query.limit || 123;
+    const allAttacks = pokeData.attacks.fast.concat(pokeData.attacks.special);
+    const result = allAttacks.slice(0, limit);
+    res.send(result);
+  });
+
   return app;
 };
 

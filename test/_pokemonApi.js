@@ -126,4 +126,11 @@ describe("Pokemon API Server", () => {
     expect(response.body).to.deep.equal(expected);
     expect(response.body.length).to.equal(22);
   });
+
+  it("should return list of attacks based on limit", async () => {
+    const response = await request.get("/api/attacks").query({ limit: 3 });
+    const allAttacks = pokeData.attacks.fast.concat(pokeData.attacks.special);
+    console.log("ALL length", allAttacks.length);
+    expect(response.body.length).to.equal(3);
+  });
 });
