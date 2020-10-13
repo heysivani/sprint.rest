@@ -155,4 +155,17 @@ describe("Pokemon API Server", () => {
     const allAttacks = pokeData.attacks.fast.concat(pokeData.attacks.special);
     expect(response.body).to.deep.equal(allAttacks[16]);
   });
+
+  it("should return all pokemon with an attack", async () => {
+    const response = await request.get("/api/attacks/Lick/pokemon");
+    const expected = [
+      { id: "092", name: "Gastly" },
+      { id: "093", name: "Haunter" },
+      { id: "108", name: "Lickitung" },
+      { id: "143", name: "Snorlax" },
+    ];
+
+    expect(response.body.length).to.equal(4);
+    expect(response.body).to.deep.equal(expected);
+  });
 });

@@ -210,6 +210,34 @@ const setupServer = () => {
     }
   });
 
+  app.get("/api/attacks/:name/pokemon", (req, res) => {
+    const name = req.params.name;
+    const result = [];
+
+    for (const poke of pokeData.pokemon) {
+      if (poke && poke.attacks) {
+        for (const attack of poke.attacks.fast) {
+          if (attack.name === name) {
+            const match = {};
+            match.id = poke.id;
+            match.name = poke.name;
+            result.push(match);
+          }
+        }
+        for (const attack of poke.attacks.special) {
+          if (attack.name === name) {
+            const match = {};
+            match.id = poke.id;
+            match.name = poke.name;
+            result.push(match);
+          }
+        }
+      }
+    }
+
+    res.send(result);
+  });
+
   return app;
 };
 
