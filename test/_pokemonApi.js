@@ -108,4 +108,19 @@ describe("Pokemon API Server", () => {
     response.should.have.status(200);
     expect(pokeData.types.includes("Cool")).to.be.false;
   });
+
+  it("should return all pokemon of given type only", async () => {
+    const type = "Normal";
+    const response = await request.get("/api/types/Normal/pokemon");
+
+    const expected = pokeData.pokemon.filter((poke) => {
+      if (poke.types) {
+        return poke.types.includes(type) ? true : false;
+      }
+      return false;
+    });
+
+    expect(response.body).to.deep.equal(expected);
+    expect(response.body.length).to.equal(22);
+  });
 });

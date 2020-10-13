@@ -162,6 +162,18 @@ const setupServer = () => {
     res.sendStatus(200);
   });
 
+  app.get("/api/types/:type/pokemon", (req, res) => {
+    const type = req.params.type;
+
+    const result = pokeData.pokemon.filter((poke) => {
+      if (poke.types) {
+        return poke.types.includes(type) ? true : false;
+      }
+      return false;
+    });
+    res.send(result);
+  });
+
   return app;
 };
 
