@@ -156,6 +156,12 @@ const setupServer = () => {
     res.sendStatus(201);
   });
 
+  app.delete("/api/types/:name", (req, res) => {
+    const index = pokeData.types.indexOf(req.params.name);
+    pokeData.types.splice(index, 1);
+    res.sendStatus(200);
+  });
+
   return app;
 };
 

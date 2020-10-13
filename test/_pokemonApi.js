@@ -93,7 +93,7 @@ describe("Pokemon API Server", () => {
     expect(response.body).to.deep.equal(expected);
   });
 
-  it("should add a type", async () => {
+  it("should add a type and send 200 if successful", async () => {
     const expected = "Cool";
     const response = await request.post("/api/types").query({ type: "Cool" });
     const length = pokeData.types.length;
@@ -101,5 +101,11 @@ describe("Pokemon API Server", () => {
     response.should.have.status(201);
     expect(pokeData.types.length).to.equal(18);
     expect(actual).to.equal(expected);
+  });
+
+  it("should delete a type and send 200 if successful", async () => {
+    const response = await request.delete("/api/types/Cool");
+    response.should.have.status(200);
+    expect(pokeData.types.includes("Cool")).to.be.false;
   });
 });
