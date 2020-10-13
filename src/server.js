@@ -250,6 +250,36 @@ const setupServer = () => {
     res.sendStatus(201);
   });
 
+  app.patch("/api/attacks/:name", (req, res) => {
+    const query = req.query;
+    const name = req.params.name;
+    let targetIndex;
+
+    if (pokeData.attacks.fast) {
+      for (const fastAttack of pokeData.attacks.fast) {
+        if (fastAttack.name === name) {
+          targetIndex = pokeData.attacks.fast.indexOf(fastAttack);
+          for (const change in query) {
+            pokeData.attacks.fast[targetIndex][change] = query[change];
+          }
+        }
+      }
+    }
+
+    if (pokeData.attacks.special) {
+      for (const specialAttack of pokeData.attacks.special) {
+        if (specialAttack.name === name) {
+          targetIndex = pokeData.attacks.special.indexOf(specialAttack);
+          for (const change in query) {
+            pokeData.attacks.special[targetIndex][change] = query[change];
+          }
+        }
+      }
+    }
+
+    res.sendStatus(200);
+  });
+
   return app;
 };
 
