@@ -198,9 +198,14 @@ describe("Pokemon API Server", () => {
     const change = {
       name: "FastShiv",
     };
-
     const response = await request.patch("/api/attacks/Shiv").query(change);
     response.should.have.status(200);
     expect(pokeData.attacks.fast[40].name).to.equal(change.name);
+  });
+
+  it("should delete an attack and send 200 if successful", async () => {
+    const response = await request.delete("/api/attacks/SpecialShiv");
+    response.should.have.status(200);
+    expect(pokeData.attacks.special.length).to.equal(83);
   });
 });

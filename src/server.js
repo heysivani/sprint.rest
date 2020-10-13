@@ -280,6 +280,31 @@ const setupServer = () => {
     res.sendStatus(200);
   });
 
+  app.delete("/api/attacks/:name", (req, res) => {
+    const name = req.params.name;
+    let targetIndex;
+
+    if (pokeData.attacks.fast) {
+      for (const fastAttack of pokeData.attacks.fast) {
+        if (fastAttack.name === name) {
+          targetIndex = pokeData.attacks.fast.indexOf(fastAttack);
+          pokeData.attacks.fast.splice(targetIndex, 1);
+        }
+      }
+    }
+
+    if (pokeData.attacks.special) {
+      for (const specialAttack of pokeData.attacks.special) {
+        if (specialAttack.name === name) {
+          targetIndex = pokeData.attacks.special.indexOf(specialAttack);
+          pokeData.attacks.special.splice(targetIndex, 1);
+        }
+      }
+    }
+
+    res.sendStatus(200);
+  });
+
   return app;
 };
 
