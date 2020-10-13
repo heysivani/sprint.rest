@@ -99,7 +99,7 @@ const setupServer = () => {
         return poke.name === String(idOrName);
       });
       if (targetPoke[0].evolutions) {
-        pokeEvos = targetPoke.evolutions;
+        pokeEvos = targetPoke[0].evolutions;
       }
     } else if (!isNaN(Number(idOrName))) {
       // is an id number
@@ -107,7 +107,7 @@ const setupServer = () => {
         return Number(poke.id) === Number(idOrName);
       });
       if (targetPoke[0].evolutions) {
-        pokeEvos = targetPoke.evolutions;
+        pokeEvos = targetPoke[0].evolutions;
       }
     }
 
@@ -150,6 +150,8 @@ const setupServer = () => {
     returnTypes = pokeData.types.slice(0, limit);
     res.send(returnTypes);
   });
+
+  app.post("/api/types", (req, res) => {});
 
   return app;
 };
