@@ -112,13 +112,16 @@ describe("Pokemon API Server", () => {
   it("should return all pokemon of given type only", async () => {
     const type = "Normal";
     const response = await request.get("/api/types/Normal/pokemon");
+    const expected = [];
 
-    const expected = pokeData.pokemon.filter((poke) => {
-      if (poke.types) {
-        return poke.types.includes(type) ? true : false;
+    for (const poke of pokeData.pokemon) {
+      const match = {};
+      if (poke.types && poke.types.includes(type)) {
+        match.id = poke.id;
+        match.name = poke.name;
+        expected.push(match);
       }
-      return false;
-    });
+    }
 
     expect(response.body).to.deep.equal(expected);
     expect(response.body.length).to.equal(22);

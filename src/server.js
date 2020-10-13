@@ -164,13 +164,17 @@ const setupServer = () => {
 
   app.get("/api/types/:type/pokemon", (req, res) => {
     const type = req.params.type;
+    const result = [];
 
-    const result = pokeData.pokemon.filter((poke) => {
-      if (poke.types) {
-        return poke.types.includes(type) ? true : false;
+    for (const poke of pokeData.pokemon) {
+      const match = {};
+      if (poke.types && poke.types.includes(type)) {
+        match.id = poke.id;
+        match.name = poke.name;
+        result.push(match);
       }
-      return false;
-    });
+    }
+
     res.send(result);
   });
 
